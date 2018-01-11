@@ -5,19 +5,18 @@ services:
 #    image: psharkey/netbeans-8.1:latest
     environment:
       - DISPLAY=novnc:0.0
-    depends_on:
-      - novnc
     user: "502"
     volumes: 
-    - /home/dsheremata/workspace:/workspace
+      - ..:/docker
+      - /Users/dsheremata/workspace:/workspace
     networks:
       - x11
   novnc:
     image: consol/centos-xfce-vnc
 #    image: psharkey/netbeans-8.1:latest
     user: "502"
-#    environment:
-#      - DISPLAY=novnc:0.0
+    volumes_from: 
+      - testc7
     networks:
       - x11
     ports:
@@ -26,3 +25,4 @@ services:
       - "6901:6901"
 networks:
   x11:
+  
