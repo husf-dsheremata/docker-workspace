@@ -1,23 +1,28 @@
 version: '2'
 services:
-  ide:
-    image: psharkey/intellij:latest
+  testc7:
+    image: centos:7
 #    image: psharkey/netbeans-8.1:latest
     environment:
       - DISPLAY=novnc:0.0
     depends_on:
       - novnc
+    user: "502"
+    volumes: 
+    - /home/dsheremata/workspace:/workspace
     networks:
       - x11
-  novnc:  
-    image: psharkey/novnc:latest
-    environment:
-      # Adjust to your screen size
-      - DISPLAY_WIDTH=1600
-      - DISPLAY_HEIGHT=968
+  novnc:
+    image: consol/centos-xfce-vnc
+#    image: psharkey/netbeans-8.1:latest
+    user: "502"
+#    environment:
+#      - DISPLAY=novnc:0.0
+    networks:
+      - x11
     ports:
       - "8080:8080"
-    networks:
-      - x11
+      - "5901:5901"
+      - "6901:6901"
 networks:
   x11:
