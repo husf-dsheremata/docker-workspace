@@ -1,28 +1,44 @@
 version: '2'
 services:
-  testc7:
+  c7:
     image: centos:7
-#    image: psharkey/netbeans-8.1:latest
     environment:
       - DISPLAY=novnc:0.0
     user: "502"
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+      - ALL
+    stdin_open: true
+    tty: true
     volumes: 
       - ..:/docker
       - /Users/dsheremata/workspace:/workspace
     networks:
       - x11
+      
   novnc:
     image: consol/centos-xfce-vnc
-#    image: psharkey/netbeans-8.1:latest
     user: "502"
+    environment: 
+      - VNC_PW=password
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+      - ALL
+    stdin_open: true
+    tty: true
     volumes_from: 
-      - testc7
+      - c7
     networks:
       - x11
     ports:
-      - "8080:8080"
+      - "222:22"
+      - "80:80"
       - "5901:5901"
       - "6901:6901"
+      - "8080:8080"
+    
 networks:
   x11:
   
