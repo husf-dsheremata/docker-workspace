@@ -17,7 +17,11 @@ services:
       - /Users/dsheremata/Downloads:/downloads
     networks:
       - x11
-      
+    ports:
+      - "8080:8080"
+      - "7474:7474"
+      - "7687:7687"
+ 
   novnc:
     image: consol/centos-xfce-vnc
     user: "502"
@@ -38,7 +42,6 @@ services:
       - "80:80"
       - "5901:5901"
       - "6901:6901"
-      - "8080:8080"
     
 networks:
   x11:
